@@ -10,3 +10,5 @@ ini branch development
 saya sekarang sedang membuat fitur a
 ===> fitur a selesai dibuat
 >>>>>>> featureA
+
+saya sekarang sedang membuat fitur b
