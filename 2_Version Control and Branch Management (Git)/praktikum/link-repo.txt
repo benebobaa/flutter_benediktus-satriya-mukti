@@ -12,3 +12,4 @@ saya sekarang sedang membuat fitur a
 >>>>>>> featureA
 
 saya sekarang sedang membuat fitur b
+===> fitur b selesai dibuat
