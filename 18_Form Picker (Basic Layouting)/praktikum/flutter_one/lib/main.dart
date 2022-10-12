@@ -24,8 +24,21 @@ class Post extends StatefulWidget {
   State<Post> createState() => _PostState();
 }
 
+List dataPreview = [
+    {
+      'publishAt': '',
+      'colorTheme': '',
+      'caption': '',
+    }
+  ];
+
 class _PostState extends State<Post> {
   final _formKey = GlobalKey<FormState>();
+  final publishAtController = TextEditingController();
+  final colorThemeController = TextEditingController();
+  final captionController = TextEditingController();
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +74,8 @@ class _PostState extends State<Post> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 3),
-                const TextField(
+                TextField(
+                  controller: publishAtController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), hintText: 'dd/mm/yyyy'),
                 ),
@@ -71,7 +85,8 @@ class _PostState extends State<Post> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 3),
-                const TextField(
+                TextField(
+                  controller: colorThemeController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), hintText: 'Pick a color'),
                 ),
@@ -81,7 +96,8 @@ class _PostState extends State<Post> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 3),
-                const TextField(
+                TextField(
+                  controller: captionController,
                   minLines: 6,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
@@ -90,22 +106,41 @@ class _PostState extends State<Post> {
                 ),
                 const SizedBox(height: 20),
                 Center(
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) {
-                            return const Preview();
-                          }, transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                            final tween = Tween(
-                                begin: const Offset(0, .5), end: Offset.zero);
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
 
-                            return SlideTransition(
-                                position: animation.drive(tween), child: child);
-                          }));
-                        },
-                        child: const Text('Simpan')))
+                        final preview = {
+                          'publishAt': publishAtController.text,
+                          'colorTheme': colorThemeController.text,
+                          'caption': captionController.text,
+                        };
+
+                        dataPreview.add(preview);
+
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) {
+                              return const Preview();
+                            },
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              final tween = Tween(
+                                  begin: const Offset(0, .5), end: Offset.zero);
+
+                              return SlideTransition(
+                                  position: animation.drive(tween),
+                                  child: child);
+                            },
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text('Simpan'),
+                  ),
+                ),
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_one/main.dart';
 
 class Preview extends StatefulWidget {
   const Preview({super.key});
@@ -14,11 +15,18 @@ class _PreviewState extends State<Preview> {
       appBar: AppBar(
         title: const Text('Preview'),
       ),
-      body: ElevatedButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: const Text('Balik'),
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Balik'),
+          ),
+          ListView.builder(
+              itemBuilder: (context, index) =>
+                  Text(dataPreview[index]['publishAt']))
+        ],
       ),
     );
   }
