@@ -1,31 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_one/main.dart';
 
-class Preview extends StatefulWidget {
-  const Preview({super.key});
+class Preview extends StatelessWidget {
+  final String date;
+  final String colors;
+  final String caption;
+  final image;
 
-  @override
-  State<Preview> createState() => _PreviewState();
-}
+  Preview(
+      {super.key,
+      required this.image,
+      required this.date,
+      required this.colors,
+      required this.caption});
 
-class _PreviewState extends State<Preview> {
   @override
   Widget build(BuildContext context) {
+    Color getColor() {
+      switch (colors) {
+        case "red":
+          return Colors.red;
+        case "blue":
+          return Colors.blue;
+        case "yellow":
+          return Colors.yellow;
+        case "orange":
+          return Colors.orange;
+        case "green":
+          return Colors.green;
+        default:
+          return Colors.transparent;
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Preview'),
       ),
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Balik'),
+          image != null
+              ? SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: Image.file(image!),
+                )
+              : SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: ColoredBox(color: Colors.blue),
+                ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Published:  ${date}',
+                  style: TextStyle(
+                    color: Colors.grey[500],
+                  ),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Color:  ',
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundColor: getColor(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          ListView.builder(
-              itemBuilder: (context, index) =>
-                  Text(dataPreview[index]['publishAt']))
+          Text(
+            caption,
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );

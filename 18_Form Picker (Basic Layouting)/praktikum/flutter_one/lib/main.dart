@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_one/preview.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 
 void main() {
   runApp(const MyApp());
@@ -24,21 +26,34 @@ class Post extends StatefulWidget {
   State<Post> createState() => _PostState();
 }
 
-List dataPreview = [
-    {
-      'publishAt': '',
-      'colorTheme': '',
-      'caption': '',
-    }
-  ];
-
 class _PostState extends State<Post> {
+  FilePickerResult? result;
+  File? fileToDisplay;
+  PlatformFile? pickedFile;
+
+  Future getPath() async {
+    result = await FilePicker.platform.pickFiles(
+      type: FileType.any,
+      allowMultiple: false,
+    );
+
+    if (result != null) {
+      pickedFile = result!.files.first;
+      fileToDisplay = File(pickedFile!.path.toString());
+    }
+
+    return fileToDisplay;
+  }
+
   final _formKey = GlobalKey<FormState>();
   final publishAtController = TextEditingController();
   final colorThemeController = TextEditingController();
   final captionController = TextEditingController();
 
-  
+  String dateToSend = '';
+  String colorToSend = '';
+  String captionToSend = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +76,9 @@ class _PostState extends State<Post> {
                   width: double.infinity,
                   height: 30,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      getPath();
+                    },
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.grey)),
@@ -111,19 +128,19 @@ class _PostState extends State<Post> {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
 
-                        final preview = {
-                          'publishAt': publishAtController.text,
-                          'colorTheme': colorThemeController.text,
-                          'caption': captionController.text,
-                        };
-
-                        dataPreview.add(preview);
+                        dateToSend = publishAtController.text;
+                        colorToSend = colorThemeController.text;
+                        captionToSend = captionController.text;
 
                         Navigator.of(context).push(
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) {
-                              return const Preview();
+                              return Preview(
+                                  image: fileToDisplay,
+                                  date: dateToSend,
+                                  colors: colorToSend,
+                                  caption: captionToSend);
                             },
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
