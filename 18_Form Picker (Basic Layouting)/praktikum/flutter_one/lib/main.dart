@@ -93,7 +93,7 @@ class _PostState extends State<Post> {
                 const SizedBox(height: 3),
                 TextField(
                   controller: publishAtController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(), hintText: 'dd/mm/yyyy'),
                 ),
                 const SizedBox(height: 10),
@@ -104,7 +104,7 @@ class _PostState extends State<Post> {
                 const SizedBox(height: 3),
                 TextField(
                   controller: colorThemeController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(), hintText: 'Pick a color'),
                 ),
                 const SizedBox(height: 10),
@@ -118,7 +118,7 @@ class _PostState extends State<Post> {
                   minLines: 6,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(), hintText: 'Pick a color'),
                 ),
                 const SizedBox(height: 20),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_one/main.dart';
 
 class Preview extends StatelessWidget {
   final String date;
@@ -7,7 +6,7 @@ class Preview extends StatelessWidget {
   final String caption;
   final image;
 
-  Preview(
+  const Preview(
       {super.key,
       required this.image,
       required this.date,
@@ -45,18 +44,18 @@ class Preview extends StatelessWidget {
                   height: 200,
                   child: Image.file(image!),
                 )
-              : SizedBox(
+              : const SizedBox(
                   width: double.infinity,
                   height: 200,
                   child: ColoredBox(color: Colors.blue),
                 ),
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Published:  ${date}',
+                  'Published:  $date',
                   style: TextStyle(
                     color: Colors.grey[500],
                   ),

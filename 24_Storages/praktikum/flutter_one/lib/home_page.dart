@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
     final userProvider = Provider.of<User>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
       ),
       body: FutureBuilder<Data?>(
           future: userProvider.getData(),
@@ -42,11 +42,11 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     'Hello, ${user!.username}',
-                    style: TextStyle(fontSize: 40),
+                    style: const TextStyle(fontSize: 40),
                   ),
                   Text(
                     user.email,
-                    style: TextStyle(fontSize: 40),
+                    style: const TextStyle(fontSize: 40),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -54,11 +54,11 @@ class _HomeState extends State<Home> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Register(),
+                          builder: (context) => const Register(),
                         ),
                       );
                     },
-                    child: Text('Sign Out'),
+                    child: const Text('Sign Out'),
                   ),
                 ],
               ),
