@@ -12,7 +12,7 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
     on<LoadContact>(  
       ((event, emit) async {
         await Future<void>.delayed(const Duration(seconds: 1));
-        emit(ContactLoaded(contact: const <Contact>[]));
+        emit(const ContactLoaded(contact: <Contact>[]));
       }),
     );
     on<AddContact>((event, emit) {

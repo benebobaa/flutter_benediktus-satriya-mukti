@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ContactBloc()..add(LoadContact())),
       ],
-      child: MaterialApp(home: Home(data: false,)),
+      child: const MaterialApp(home: Home(data: false,)),
     );
   }
 }

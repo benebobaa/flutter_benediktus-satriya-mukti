@@ -21,7 +21,6 @@ class _AddContactsState extends State<AddContacts> {
 
   @override
   Widget build(BuildContext context) {
-    ContactBloc bloc = BlocProvider.of<ContactBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create Contact'),

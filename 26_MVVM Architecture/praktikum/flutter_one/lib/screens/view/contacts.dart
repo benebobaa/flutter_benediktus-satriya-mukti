@@ -32,7 +32,6 @@ class _ContactsState extends State<Contacts> {
         itemCount: modelView.contacts.length,
         itemBuilder: (context, index) {
           final contact = modelView.contacts[index];
-          var indexContact = modelView.contacts[index];
           return InkWell(
             child: ListTile(
               title: Text(contact.name),
